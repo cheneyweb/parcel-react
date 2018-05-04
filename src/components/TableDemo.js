@@ -27,28 +27,33 @@ export default class TableDemo extends React.Component {
         return <Table dataSource={data} size="small">
             {/* <ColumnGroup title="Name"> */}
                 <Column
-                    title="First Name"
+                    title="序号"
                     dataIndex="firstName"
                     key="firstName"
                 />
                 <Column
-                    title="Last Name"
+                    title="服务"
                     dataIndex="lastName"
                     key="lastName"
                 />
             {/* </ColumnGroup> */}
             <Column
-                title="Age"
+                title="类型"
                 dataIndex="age"
                 key="age"
             />
             <Column
-                title="Address"
+                title="构建时间"
                 dataIndex="address"
                 key="address"
             />
             <Column
-                title="Action"
+                title="完成时间"
+                dataIndex="address"
+                key="address"
+            />
+            <Column
+                title="操作"
                 key="action"
                 render={(text, record) => (
                     <span>

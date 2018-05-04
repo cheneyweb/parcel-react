@@ -6,6 +6,7 @@ const { Header, Content, Footer, Sider } = Layout
 
 import TreeDemo from './TreeDemo'
 import TableDemo from './TableDemo'
+import Mobx from './Mobx'
 
 export default class App extends React.Component {
     renderLayout() {
@@ -25,6 +26,18 @@ export default class App extends React.Component {
                             <span className="nav-text">表格</span>
                         </Link>
                     </Menu.Item>
+                    <Menu.Item key="3">
+                        <Link to="/nostate">
+                            <Icon type="nostate" />
+                            <span className="nav-text">无状态组件</span>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="4">
+                        <Link to="/mobx">
+                            <Icon type="mobx" />
+                            <span className="nav-text">MOBX</span>
+                        </Link>
+                    </Menu.Item>
                 </Menu>
             </Sider>
             <Layout style={{ marginLeft: 200 }}>
@@ -32,6 +45,8 @@ export default class App extends React.Component {
                 <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
                     <Route path="/tree" component={TreeDemo} />
                     <Route path="/table" component={TableDemo} />
+                    <Route path="/nostate" component={NoState} />
+                    <Route path="/mobx" component={Mobx} />
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
                     XServer Design ©2018 Created by CheneyXu
@@ -40,6 +55,11 @@ export default class App extends React.Component {
         </Layout>
     }
     render() {
-        return <div className="abc">{this.renderLayout()}</div>
+        return <div>{this.renderLayout()}</div>
     }
+}
+
+// 无状态函数式组件演示
+function NoState(props) {
+    return <div>我是一个函数式定义的react组件</div>
 }
