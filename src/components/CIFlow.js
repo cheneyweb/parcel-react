@@ -16,8 +16,8 @@ export default class CIFlow extends React.Component {
         this.store = this.props.rs.ciFlowStore
         this.reload()
     }
-    async reload() {
-        this.store.load({ "sort": { "createdAt": -1 }, "options": { "limit": 10, "skip": 0 } })
+    async reload(skip = 0) {
+        this.store.load({ "sort": { "createdAt": -1 }, "options": { "limit": 5, "skip": skip } })
     }
     async del(id) {
         this.store.del(id)
@@ -25,10 +25,15 @@ export default class CIFlow extends React.Component {
     render() {
         return <div>
             <Divider>持续集成服务流</Divider>
-            <Button onClick={() => this.reload()} type="primary">刷新</Button>
+            <Button onClick={() => this.reload()} type="primary">刷新</Button>&nbsp;&nbsp;
+            <Button onClick={() => this.reload(this.store.flow.length)} type="default">加载更多</Button>
             <br /><br />
-            <Table dataSource={this.store.flow.slice()} size="small">
+            <Table dataSource={this.store.flow.slice()} size="small" pagination={false}>
                 {/* <ColumnGroup title="Name"> */}
+                <Column
+                    title="序号"
+                    dataIndex="key"
+                />
                 <Column
                     title="服务"
                     dataIndex="server"
