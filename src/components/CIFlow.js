@@ -1,6 +1,6 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { Table, Icon, Divider, Input, Popover, Button } from 'antd'
+import { Table, Icon, Divider, Input, Popover, Button, Popconfirm } from 'antd'
 import dayjs from "dayjs"
 
 const { Column } = Table
@@ -16,11 +16,14 @@ export default class CIFlow extends React.Component {
         this.store = this.props.rs.ciFlowStore
         this.reload()
     }
-    async reload(skip = 0) {
-        this.store.load({ "sort": { "createdAt": -1 }, "options": { "limit": 5, "skip": skip } })
+    reload(skip = 0) {
+        this.store.load({ "sort": { "createdAt": -1 }, "options": { "limit": 20, "skip": skip } })
     }
-    async del(id) {
+    del(id) {
         this.store.del(id)
+    }
+    replay(id) {
+        console.info('重放执行')
     }
     render() {
         return <div>
@@ -72,9 +75,13 @@ export default class CIFlow extends React.Component {
                     dataIndex="action"
                     render={(text, record) => (
                         <span>
-                            <a href="javascript:;">重放</a>
+                            <Popconfirm title="确认执行脚本重放吗?" onConfirm={() => this.replay(record._id)} okText="确认" cancelText="取消">
+                                <a>重放</a>
+                            </Popconfirm>
                             <Divider type="vertical" />
-                            <a onClick={() => this.del(record._id)} >删除</a>
+                            <Popconfirm title="确认删除该构建流?" onConfirm={() => this.del(record._id)} okText="确认" cancelText="取消">
+                                <a>删除</a>
+                            </Popconfirm>
                         </span>
                     )}
                 />
