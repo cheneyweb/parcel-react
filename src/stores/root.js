@@ -1,23 +1,35 @@
-import { observable } from 'mobx'
+import { observable, action } from 'mobx'
+import axios from 'axios'
 
-// Store1
-class UserStore {
-  @observable users = []
+const protocol = 'http'
+const domain = 'localhost:10001'
+const prefix = `${protocol}://${domain}`
+const api = {
+  getCIConfig: `${prefix}/deploy/xci/ciconfig`
+}
+
+// CI配置Store
+class CIConfigStore {
+  @observable ci = {}
   constructor(rs) {
     this.rs = rs
   }
-  getAll() {
-    return this.users
-  }
-  getTodos(user) {
-    // 通过根 store 来访问 todoStore
-    return this.rs.todoStore.todos.filter(todo => todo.author === user)
-  }
-  addUser(content) {
-    this.users.push({
-      content: content
+
+  // 可以使用async...await，同时箭头表达式可以解决this指向问题
+  load() {
+    axios.get(api.getCIConfig).then((res) => {
+      this.setData(res.data)
     })
   }
+
+  @action setData(data) {
+    this.ci = data
+  }
+
+  // getTodos(user) {
+  //   // 通过根 store 来访问 todoStore
+  //   return this.rs.todoStore.todos.filter(todo => todo.author === user)
+  // }
 }
 
 // Store2
@@ -39,7 +51,7 @@ class TodoStore {
 // 全局根存储
 class RootStore {
   constructor() {
-    this.userStore = new UserStore(this)
+    this.ciConfigStore = new CIConfigStore(this)
     this.todoStore = new TodoStore(this)
   }
 }

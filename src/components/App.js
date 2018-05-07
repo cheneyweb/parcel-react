@@ -6,7 +6,7 @@ const { Header, Content, Footer, Sider } = Layout
 
 import TreeDemo from './TreeDemo'
 import TableDemo from './TableDemo'
-import Mobx from './Mobx'
+import CIConfig from './CIConfig'
 
 export default class App extends React.Component {
     renderLayout() {
@@ -33,9 +33,9 @@ export default class App extends React.Component {
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="4">
-                        <Link to="/mobx">
-                            <Icon type="mobx" />
-                            <span className="nav-text">MOBX</span>
+                        <Link to="/ciconfig">
+                            <Icon type="ciconfig" />
+                            <span className="nav-text">构建配置</span>
                         </Link>
                     </Menu.Item>
                 </Menu>
@@ -46,9 +46,9 @@ export default class App extends React.Component {
                     <Route path="/tree" component={TreeDemo} />
                     <Route path="/table" component={TableDemo} />
                     <Route path="/nostate" component={NoState} />
-                    <Route path="/mobx" component={Mobx} />
+                    <Route path="/ciconfig" component={CIConfig} />
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>
+                <Footer style={{ position: 'fixed', bottom: 0, width: '100%', textAlign: 'center' }}>
                     XServer Design ©2018 Created by CheneyXu
                 </Footer>
             </Layout>
