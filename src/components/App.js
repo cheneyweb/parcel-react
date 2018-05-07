@@ -15,15 +15,15 @@ export default class App extends React.Component {
                 <div className="logo" />
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                     <Menu.Item key="1">
-                        <Link to="/ciconfig">
-                            <Icon type="tool" />
-                            <span className="nav-text">构建配置</span>
-                        </Link>
-                    </Menu.Item>
-                    <Menu.Item key="2">
                         <Link to="/ciflow">
                             <Icon type="table" />
                             <span className="nav-text">构建服务流</span>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="2">
+                        <Link to="/ciconfig">
+                            <Icon type="tool" />
+                            <span className="nav-text">构建配置</span>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="3">

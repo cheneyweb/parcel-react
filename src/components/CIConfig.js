@@ -21,9 +21,10 @@ class CIConfig extends React.Component {
             console.log('回调:' + key)
         }
         return <div>
+            <Divider>持续集成服务配置</Divider>
             <Button type="primary">保存</Button>&nbsp;&nbsp;
             <Button type="default">还原</Button>
-            <Divider>持续集成服务配置</Divider>
+            <br /><br />
             <Collapse defaultActiveKey={['1']} onChange={callback}>
                 {
                     Object.keys(this.store.ci).map((key, index, keyArr) => {
