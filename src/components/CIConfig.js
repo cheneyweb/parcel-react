@@ -25,7 +25,7 @@ class CIConfig extends React.Component {
             <Button type="primary">保存</Button>&nbsp;&nbsp;
             <Button type="default">还原</Button>
             <br /><br />
-            <Collapse defaultActiveKey={['1']} onChange={callback}>
+            <Collapse defaultActiveKey={['0']} onChange={callback}>
                 {
                     Object.keys(this.store.ci).map((key, index, keyArr) => {
                         console.info(key)
