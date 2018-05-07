@@ -14,63 +14,62 @@ export default class CIFlow extends React.Component {
     constructor(props) {
         super(props)
         this.store = this.props.rs.ciFlowStore
+        this.reload()
+    }
+    async reload() {
         this.store.load({ "sort": { "createdAt": -1 }, "options": { "limit": 10, "skip": 0 } })
+    }
+    async del(id) {
+        this.store.del(id)
     }
     render() {
         return <div>
             <Divider>持续集成服务流</Divider>
-            <Button type="primary">刷新</Button>
+            <Button onClick={() => this.reload()} type="primary">刷新</Button>
             <br /><br />
-            <Table dataSource={this.store.flow} size="small">
+            <Table dataSource={this.store.flow.slice()} size="small">
                 {/* <ColumnGroup title="Name"> */}
                 <Column
                     title="服务"
                     dataIndex="server"
-                    key="server"
                 />
                 {/* </ColumnGroup> */}
                 <Column
                     title="类型"
                     dataIndex="type"
-                    key="type"
                 />
                 <Column
                     title="状态"
                     dataIndex="status"
-                    key="status"
                 />
                 <Column
                     title="构建脚本"
                     dataIndex="command"
-                    key="command"
                     render={text => <Popover placement="rightTop" content={<TextArea style={{ width: '600' }} value={JSON.stringify(text, null, 2)} autosize="true" />} title="构建脚本"><a>显示构建脚本</a></Popover>}
                 />
                 <Column
                     title="构建时间"
                     dataIndex="createdAt"
-                    key="createdAt"
                     render={text => <span>{dayjs(text).format('YYYY-MM-DD HH:mm:ss')}</span>}
                 />
                 <Column
                     title="完成时间"
                     dataIndex="updatedAt"
-                    key="updatedAt"
                     render={text => <span>{dayjs(text).format('YYYY-MM-DD HH:mm:ss')}</span>}
                 />
                 <Column
                     title="构建结果"
-                    dataIndex="command"
-                    key="command"
+                    dataIndex="commandResult"
                     render={text => <Popover placement="leftTop" content={<TextArea style={{ width: '600' }} value={JSON.stringify(text, null, 2)} autosize="true" />} title="构建结果"><a>显示构建结果</a></Popover>}
                 />
                 <Column
                     title="操作"
-                    key="action"
+                    dataIndex="action"
                     render={(text, record) => (
                         <span>
                             <a href="javascript:;">重放</a>
                             <Divider type="vertical" />
-                            <a href="javascript:;">删除</a>
+                            <a onClick={() => this.del(record._id)} >删除</a>
                         </span>
                     )}
                 />

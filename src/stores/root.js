@@ -6,7 +6,8 @@ const domain = 'localhost:10001'
 const prefix = `${protocol}://${domain}`
 const api = {
   getCIConfig: `${prefix}/deploy/xci/ciconfig`,
-  getCIFlow: `${prefix}/xci/xnosql/ciflow/page`
+  getCIFlow: `${prefix}/xci/xnosql/ciflow/page`,
+  delCIFlow: `${prefix}/xci/xnosql/ciflow/destroy/`
 }
 
 // CI配置Store
@@ -41,10 +42,22 @@ class CIFlowStore {
   }
 
   // 可以使用async...await，同时箭头表达式可以解决this指向问题
-  load(inparam) {
-    axios.post(api.getCIFlow, inparam).then((res) => {
-      this.setData(res.data.res)
+  async load(inparam) {
+    let res = await axios.post(api.getCIFlow, inparam)
+    res.data.res.map((value, index) => {
+      value.key = index.toString()
     })
+    this.setData(res.data.res)
+  }
+
+  async del(id) {
+    let res = await axios.get(`${api.delCIFlow}${id}`)
+    if (!res.data.err) {
+      let data = this.flow.filter((item) => {
+        return item._id != id
+      })
+      this.setData(data)
+    }
   }
 
   @action setData(data) {
