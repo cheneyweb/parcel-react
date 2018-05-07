@@ -1,6 +1,6 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { Table, Icon, Divider, Input, Popover } from 'antd'
+import { Table, Icon, Divider, Input, Popover, Button } from 'antd'
 import dayjs from "dayjs"
 
 const { Column } = Table
@@ -19,6 +19,8 @@ export default class CIFlow extends React.Component {
     render() {
         return <div>
             <Divider>持续集成服务流</Divider>
+            <Button type="primary">刷新</Button>
+            <br /><br />
             <Table dataSource={this.store.flow} size="small">
                 {/* <ColumnGroup title="Name"> */}
                 <Column
