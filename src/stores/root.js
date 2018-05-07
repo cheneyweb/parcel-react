@@ -5,7 +5,8 @@ const protocol = 'http'
 const domain = 'localhost:10001'
 const prefix = `${protocol}://${domain}`
 const api = {
-  getCIConfig: `${prefix}/deploy/xci/ciconfig`
+  getCIConfig: `${prefix}/deploy/xci/ciconfig`,
+  getCIFlow: `${prefix}/xci/xnosql/ciflow/page`
 }
 
 // CI配置Store
@@ -32,19 +33,22 @@ class CIConfigStore {
   // }
 }
 
-// Store2
-class TodoStore {
-  @observable todos = []
+// CI服务流Store
+class CIFlowStore {
+  @observable flow = []
   constructor(rs) {
     this.rs = rs
   }
-  getAll() {
-    return this.todos
-  }
-  addTodo(content) {
-    this.todos.push({
-      content: content
+
+  // 可以使用async...await，同时箭头表达式可以解决this指向问题
+  load(inparam) {
+    axios.post(api.getCIFlow, inparam).then((res) => {
+      this.setData(res.data.res)
     })
+  }
+
+  @action setData(data) {
+    this.flow = data
   }
 }
 
@@ -52,7 +56,7 @@ class TodoStore {
 class RootStore {
   constructor() {
     this.ciConfigStore = new CIConfigStore(this)
-    this.todoStore = new TodoStore(this)
+    this.ciFlowStore = new CIFlowStore(this)
   }
 }
 
