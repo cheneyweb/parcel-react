@@ -42,13 +42,13 @@ export default class App extends React.Component {
             </Sider>
             <Layout style={{ marginLeft: 200 }}>
                 {/* <Header style={{ background: '#fff', padding: 0 }} /> */}
-                <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+                <Content style={{ margin: '24px 16px 70px', overflow: 'initial' }}>
                     <Route path="/tree" component={TreeDemo} />
                     <Route path="/table" component={TableDemo} />
                     <Route path="/nostate" component={NoState} />
                     <Route path="/ciconfig" component={CIConfig} />
                 </Content>
-                <Footer style={{ position: 'fixed', bottom: 0, width: '100%', textAlign: 'center' }}>
+                <Footer style={{ position: 'fixed', bottom: 0, height: '70px', width: '100%', textAlign: 'center' }}>
                     XServer Design ©2018 Created by CheneyXu
                 </Footer>
             </Layout>
