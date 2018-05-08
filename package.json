@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel index.html",
-    "build": "parcel build index.html --public-url /"
+    "build": "parcel build index.html --public-url /",
+    "xci": "parcel build index.html --public-url /xci/dist/ --out-dir ../x-ci/dist/ --no-source-maps"
   },
   "author": "cheneyxu",
   "license": "ISC",
