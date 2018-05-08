@@ -6,7 +6,6 @@ const { Header, Content, Footer, Sider } = Layout
 
 import CIConfig from './CIConfig'
 import CIFlow from './CIFlow'
-import TreeDemo from './TreeDemo'
 
 export default class App extends React.Component {
     renderLayout() {
@@ -26,12 +25,6 @@ export default class App extends React.Component {
                             <span className="nav-text">构建配置</span>
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="3">
-                        <Link to="/tree">
-                            <Icon type="bars" />
-                            <span className="nav-text">树形</span>
-                        </Link>
-                    </Menu.Item>
                     <Menu.Item key="4">
                         <Link to="/nostate">
                             <Icon type="nostate" />
@@ -45,7 +38,6 @@ export default class App extends React.Component {
                 <Content style={{ margin: '24px 16px 70px', overflow: 'initial' }}>
                     <Route path="/ciconfig" component={CIConfig} />
                     <Route path="/ciflow" component={CIFlow} />
-                    <Route path="/tree" component={TreeDemo} />
                     <Route path="/nostate" component={NoState} />
                 </Content>
                 <Footer style={{ position: 'fixed', bottom: 0, height: '70px', width: '100%', textAlign: 'center' }}>

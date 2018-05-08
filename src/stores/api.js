@@ -1,6 +1,6 @@
 const protocol = 'http'
-const domain = 'localhost:10001'
-const prefix = `${protocol}://${domain}`
+const domain = 'xserver.top'
+const prefix = `${protocol}://${domain}/webhooks`
 
 const api = {
     getCIConfig: `${prefix}/deploy/xci/ciconfig`,

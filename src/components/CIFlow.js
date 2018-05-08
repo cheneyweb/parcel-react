@@ -66,8 +66,13 @@ export default class CIFlow extends React.Component {
                     render={text => <span>{dayjs(text).format('YYYY-MM-DD HH:mm:ss')}</span>}
                 />
                 <Column
+                    title="构建耗时"
+                    dataIndex="runtime"
+                    render={(text, record) => <span>{record.updatedAt ? ((record.updatedAt - record.createdAt) / 1000).toFixed(2) : 0}s</span>}
+                />
+                <Column
                     title="构建结果"
-                    dataIndex="commandResult"
+                    dataIndex="result"
                     render={text => <Popover placement="leftTop" content={<TextArea style={{ width: '600' }} value={JSON.stringify(text, null, 2)} autosize="true" />} title="构建结果"><a>显示构建结果</a></Popover>}
                 />
                 <Column
