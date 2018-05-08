@@ -1,6 +1,6 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { Collapse, Input, Button, Divider } from 'antd'
+import { Collapse, Input, Button, Divider, Spin } from 'antd'
 
 const Panel = Collapse.Panel
 const TextArea = Input.TextArea
@@ -25,17 +25,19 @@ class CIConfig extends React.Component {
             <Button type="primary">保存</Button>&nbsp;&nbsp;
             <Button type="default">还原</Button>
             <br /><br />
-            <Collapse defaultActiveKey={['0']} onChange={callback}>
-                {
-                    Object.keys(this.store.ci).map((key, index, keyArr) => {
-                        console.info(key)
-                        console.info(index)
-                        return <Panel header={key} key={index}>
-                            <TextArea defaultValue={JSON.stringify(this.store.ci[key], null, 2)} autosize={{ minRows: 3, maxRows: 20 }} />
-                        </Panel>
-                    })
-                }
-            </Collapse>
+            <Spin size="large" spinning={this.store.loading}>
+                <Collapse defaultActiveKey={['0']} onChange={callback}>
+                    {
+                        Object.keys(this.store.ci).map((key, index, keyArr) => {
+                            console.info(key)
+                            console.info(index)
+                            return <Panel header={key} key={index}>
+                                <TextArea defaultValue={JSON.stringify(this.store.ci[key], null, 2)} autosize={{ minRows: 3, maxRows: 20 }} />
+                            </Panel>
+                        })
+                    }
+                </Collapse>
+            </Spin>
         </div>
     }
 }
