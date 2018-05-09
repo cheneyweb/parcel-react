@@ -2,8 +2,8 @@ import axios from 'axios'
 import { message } from 'antd'
 
 const protocol = 'http'
-const domain = 'localhost:10001'
-// const domain = 'xserver.top'
+// const domain = 'localhost:10001'
+const domain = 'xserver.top'
 const prefix = `${protocol}://${domain}`
 
 // 处理请求失败
