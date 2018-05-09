@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx'
-import axios from 'axios'
 import api from './api'
 import BaseStore from './BaseStore'
+import { message } from 'antd'
 
 // CI配置Store
 export default class CIConfigStore extends BaseStore {
@@ -14,10 +14,35 @@ export default class CIConfigStore extends BaseStore {
   // 可以使用async...await，同时箭头表达式可以解决this指向问题
   load() {
     this.openLoading()
-    axios.get(api.getCIConfig).then((res) => {
-      this.setData(res.data)
+    api.get(api.getCIConfig).then(data => {
+      for (let key in data) {
+        data[key] = JSON.stringify(data[key], null, 2)
+      }
+      this.setData(data)
       this.closeLoading()
     })
+  }
+
+  save() {
+    const data = {}
+    // 检查配置是否正确
+    for (let key in this.ci) {
+      try {
+        data[key] = JSON.parse(this.ci[key])
+      } catch (error) {
+        message.error(`${key} 的配置存在错误`, 1)
+        return
+      }
+    }
+    // 请求保存
+    this.openLoading()
+    api.post(api.updateCIConfig, data).then(data => {
+      this.load()
+    })
+  }
+
+  @action handleChange(data) {
+    this.ci[data.id] = data.value
   }
 
   @action setData(data) {

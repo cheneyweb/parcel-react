@@ -1,6 +1,7 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import { Collapse, Input, Button, Divider, Spin } from 'antd'
+import _ from 'lodash'
 
 const Panel = Collapse.Panel
 const TextArea = Input.TextArea
@@ -16,23 +17,27 @@ class CIConfig extends React.Component {
         this.store.load()
     }
 
+    // 实时更新配置
+    handleChange(e) {
+        this.store.handleChange(e.target)
+    }
+
     render() {
         function callback(key) {
             console.log('回调:' + key)
         }
+
         return <div>
             <Divider>持续集成服务配置</Divider>
-            <Button type="primary">保存</Button>&nbsp;&nbsp;
-            <Button type="default">还原</Button>
+            <Button type="primary" onClick={() => this.store.save()}>保存</Button>&nbsp;&nbsp;
+            <Button type="default" onClick={() => this.store.load()}>还原</Button>
             <br /><br />
             <Spin size="large" spinning={this.store.loading}>
                 <Collapse defaultActiveKey={['0']} onChange={callback}>
                     {
                         Object.keys(this.store.ci).map((key, index, keyArr) => {
-                            console.info(key)
-                            console.info(index)
                             return <Panel header={key} key={index}>
-                                <TextArea defaultValue={JSON.stringify(this.store.ci[key], null, 2)} autosize={{ minRows: 3, maxRows: 20 }} />
+                                <TextArea id={key} value={this.store.ci[key]} autosize={{ minRows: 3, maxRows: 20 }} onChange={this.handleChange.bind(this)} />
                             </Panel>
                         })
                     }
