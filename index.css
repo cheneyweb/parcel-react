@@ -1,5 +1,4 @@
-@import "./node_modules/antd/dist/antd.less";   // 引入官方提供的 less 样式入口文件
-@primary-color: #5B83AD;
+/* @primary-color: #5B83AD; */
 
 .ant-layout{
     background:white;
